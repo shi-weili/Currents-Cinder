@@ -10,13 +10,13 @@ public:
 	void draw();
 	void applyForce(glm::vec2 force);
 	void bounceForce(float damping, bool isVertical);
-	glm::vec2 getPosition(){ return position; }
+	glm::vec2 getPosition(){ return mPosition; }
 private:
 	
-	float	  friction;
-	glm::vec2 position;
-	glm::vec2 velocity;
-	glm::vec2 acceleration;
+	float	  mFriction;
+	glm::vec2 mPosition;
+	glm::vec2 mVelocity;
+	glm::vec2 mAcceleration;
 
 };
 

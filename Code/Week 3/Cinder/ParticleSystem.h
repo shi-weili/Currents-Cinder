@@ -18,7 +18,7 @@ private:
 
 	int                     mParticleNum;
 	std::vector<Particle>   mParticles;
-	float			range;
-	float			repulsionFactor;
+	float			mRange;
+	float			mRepulsionFactor;
 };
 

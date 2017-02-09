@@ -6,15 +6,15 @@ ParticleSystem::ParticleSystem()
     // define how many particles you wnat
 	mParticleNum = 500;
     // we dont want to initialize at same pos, so random range
-	range = 10.f;
+	mRange = 10.f;
     // reduce repulsion
-	repulsionFactor = 0.05f;
+	mRepulsionFactor = 0.05f;
     // randomize system clock
 	ci::Rand::randomize();
 	for (int i = 0; i < mParticleNum; i++)
 	{
         // push particles into array
-		Particle singleParticle(ci::app::getWindowCenter() + glm::vec2(ci::randFloat(-range, range), ci::randFloat(-range, range)));
+		Particle singleParticle(ci::app::getWindowCenter() + glm::vec2(ci::randFloat(-mRange, mRange), ci::randFloat(-mRange, mRange)));
 		mParticles.push_back(singleParticle);
 	}
 }
@@ -29,7 +29,7 @@ void ParticleSystem::repulseFrom(glm::vec2 position)
 	for (auto& p : mParticles){
 		float distanceDiff = ci::length(p.getPosition() - position);
 		if (distanceDiff < 20.f){
-			glm::vec2 repulsion = (p.getPosition() - position) * repulsionFactor;
+			glm::vec2 repulsion = (p.getPosition() - position) * mRepulsionFactor;
 			p.applyForce(repulsion);
 		}
 	}
@@ -60,7 +60,7 @@ void ParticleSystem::update()
 			// repel from each other
 			float distanceDiff = ci::length(mParticles[i].getPosition() - mParticles[j].getPosition());
 			if (distanceDiff < 5.f){
-				glm::vec2 repulsion = (mParticles[i].getPosition() - mParticles[j].getPosition()) * repulsionFactor;
+				glm::vec2 repulsion = (mParticles[i].getPosition() - mParticles[j].getPosition()) * mRepulsionFactor;
 				mParticles[i].applyForce(repulsion);
 			}
 		}
