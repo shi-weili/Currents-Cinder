@@ -1,9 +1,9 @@
 #include "Particle.h"
 
-Particle::Particle(glm::vec2 startmPosition)
+Particle::Particle(glm::vec2 startPosition)
 {
     // initialize variables
-	mPosition = startmPosition;
+	mPosition = startPosition;
 	mVelocity = glm::vec2(0.f, 0.f);
 	mAcceleration = glm::vec2(0.f, 0.f);
 	mFriction = 0.95f;
