@@ -148,12 +148,18 @@ int main(int argc, const char * argv[]) {
 //    list<Country *> world; // a list of pointers to Country
 //    while(true) { // infinite loop
 //        if(rand() % 100 >= 50) { // 50% chance to add a new Country
-//            Country* newCountryPtr = new Country(); // "New" operator allocates memory dynamically, and returns the address of the new object.
+//			// Can't do this:
+////			Country newCountry;
+////			newCountry.population = rand();
+////			world.push_back(&newCountry); // Append the address of the new Country to the list.
+//			// Remember in the first class, we talked about scope? One more thing to learn is, when the code excutes out of a scope (for our case here it is the "if () {}" one), the local objects created within the scope will be automatically deleted. Therefore, what the list stores are pointers to illegal memory addresses.
+//			
+//            Country* newCountryPtr = new Country(); // "New" operator allocates memory dynamically, and returns the address of the new object. Dynamic objects won't be automatically deleted when the code goes out of the scope, so you can continue using them. It is your duty, however, to delete them at a proper time.
 //            newCountryPtr->population = rand();
 //            world.push_back(newCountryPtr); // Append the address of the new Country to the list.
 //        }
 //        
-//        if(world.size() > 0 && rand() % 100 >=50) { // If list is not empty, 50% chance to delete the oldest Country.
+//        if(world.size() > 0 && rand() % 100 >=50) {
 //            delete world.front(); // "Delete" operator accepts a memory address (pointer), and frees up the memory it points to. Profile the program without this line to demostrate memory leak.
 //            world.pop_front(); // And this step is to remove the pointer from the list.
 //        }
@@ -171,7 +177,7 @@ int main(int argc, const char * argv[]) {
             world.push_back(newCountryPtr); // Append the shared_ptr to the new Country to the list.
         }
         
-        if(world.size() > 0 && rand() % 100 >=50) { // If list is not empty, 50% chance to delete the oldest Country.
+        if(world.size() > 0 && rand() % 100 >=50) {
             // No need to delete the dynamic object manually! The shared_ptr will manage the memory autamically. It will count the number of references to the object it points to. Once the number drops to 0, it will delete the object. Therefore, when we remove the share_ptr itself from the list in the next line, the number of reference drops to 0, and the shared_ptr will delete the object it points to.
             world.pop_front(); // And this step is to remove the pointer from the list.
         }
